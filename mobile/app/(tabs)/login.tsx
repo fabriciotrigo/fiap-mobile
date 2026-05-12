@@ -3,19 +3,25 @@ import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image } from "reac
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { signIn } from "../../src/services/auth";
+import { useAuth } from "../../src/contexts/AuthContext";
 
 export default function Login() {
+  const { login } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleLogin() {
     try {
-      await signIn(username, password);
+      const { user } = await signIn(username, password);
+
+      await login(user);
 
       router.replace("/postagens");
 
     } catch (error) {
-      alert("Usuário ou senha inválidos");
+      console.log(error);
+      alert('Usuário ou senha inválidos');
     }
   }
 

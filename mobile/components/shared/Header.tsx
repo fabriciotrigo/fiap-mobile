@@ -1,13 +1,21 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useAuth } from "../../src/contexts/AuthContext";
 
 type Props = {
   showBack?: boolean;
   userName?: string;
 };
 
-export default function Header({ showBack = false, userName }: Props) {
+export default function Header({ showBack = false }: Props) {
+  const { user, logout } = useAuth();
+
+  async function handleLogout() {
+    await logout();
+    router.replace("/login");
+  }
+
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
       <View style={styles.container}>
@@ -16,7 +24,7 @@ export default function Header({ showBack = false, userName }: Props) {
         <View style={styles.left}>
           {showBack && (
             <TouchableOpacity onPress={() => router.back()}>
-              <Text style={styles.actionText}>←voltar</Text>
+              <Text style={styles.actionText}>←</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -26,10 +34,14 @@ export default function Header({ showBack = false, userName }: Props) {
           <Text style={styles.title}>Blog Educacional</Text>
         </View>
 
-        {/* DIREITA (Usuário) */}
+        {/* usuário */}
         <View style={styles.right}>
-          {userName && (
-            <Text style={styles.user}>{userName}</Text>
+          {user && (
+            <TouchableOpacity onPress={handleLogout}>
+              <Text style={styles.user}>
+                {user.username} | Sair
+              </Text>
+            </TouchableOpacity>
           )}
         </View>
 
