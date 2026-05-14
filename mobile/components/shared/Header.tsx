@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useAuth } from "../../src/contexts/AuthContext";
@@ -37,11 +37,21 @@ export default function Header({ showBack = false }: Props) {
         {/* usuário */}
         <View style={styles.right}>
           {user && (
-            <TouchableOpacity onPress={handleLogout}>
-              <Text style={styles.user}>
-                {user.username} | Sair
+            <View style={styles.userContainer}>
+              <Text
+                style={styles.user}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {user.username}
               </Text>
-            </TouchableOpacity>
+
+              <TouchableOpacity onPress={handleLogout}>
+                <Text style={styles.logout}>
+                  | Sair
+                </Text>
+              </TouchableOpacity>
+            </View>
           )}
         </View>
 
@@ -70,7 +80,8 @@ const styles = StyleSheet.create({
   },
 
   left: {
-    width: 50,
+    width: 80,
+    justifyContent: "center",
   },
 
   center: {
@@ -80,7 +91,9 @@ const styles = StyleSheet.create({
 
   right: {
     width: 80,
-    alignItems: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
 
   title: {
@@ -98,5 +111,18 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     fontWeight: "500",
+  },
+
+  userContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    maxWidth: 90,
+  },
+
+  logout: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
