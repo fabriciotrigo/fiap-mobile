@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native"
 import Header from "../../components/shared/Header"
 import { api } from "../../src/services/api"
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 type Postagem = {
   id: number;
@@ -30,9 +30,11 @@ export default function Postagens() {
     }
   }
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+        loadPosts();
+    }, [])
+  );
 
   function handleOpen(id: number) {
     router.push(`/editar/${id}`);
@@ -52,11 +54,17 @@ export default function Postagens() {
             style={styles.card} 
             onPress={() => handleOpen(item.id)}>
 
-            <Text style={styles.title}>
+            <Text 
+              style={styles.title}
+              numberOfLines={1}
+            >
               {item.disciplina}
             </Text>
 
-            <Text style={styles.content}>
+            <Text 
+              style={styles.content}
+              numberOfLines={2}
+            >
               {item.texto_postagem}
             </Text>
 

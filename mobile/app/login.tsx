@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { signIn } from "../../src/services/auth";
-import { useAuth } from "../../src/contexts/AuthContext";
+import { signIn } from "../src/services/auth";
+import { useAuth } from "../src/contexts/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();
@@ -29,7 +29,7 @@ export default function Login() {
     <SafeAreaView style={styles.container}>
       <View style={styles.card}>
         <Image 
-          source={require('../../assets/images/blog-logo.png')} 
+          source={require('../assets/images/blog-logo.png')} 
           style={{ alignSelf: "center", width: 120, height: 120 }}
         />
         <Text style={styles.title}>Blog Educacional</Text>

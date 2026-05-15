@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
-import Header from "../../../components/shared/Header";
-import { api } from "../../../src/services/api";
-import { useAuth } from "../../../src/contexts/AuthContext";
+import Header from "../../components/shared/Header";
+import { api } from "../../src/services/api";
+import { useAuth } from "../../src/contexts/AuthContext";
 
 export default function EditarPostagem() {
 
@@ -11,8 +11,9 @@ export default function EditarPostagem() {
   const { user } = useAuth();
   const isProfessor = user?.nivel === 1;
 
+  const [texto_postagem, setTexto] = useState("");
   const [disciplina, setDisciplina] = useState("");
-  const [texto, setTexto] = useState("");
+  const [autor, setAutor] = useState("");
 
   async function loadPost() {
 
@@ -24,6 +25,7 @@ export default function EditarPostagem() {
 
       setDisciplina(response.data.disciplina);
       setTexto(response.data.texto_postagem);
+      setAutor(response.data.autor);
 
     } catch (error) {
 
@@ -37,8 +39,9 @@ export default function EditarPostagem() {
     try {
 
       await api.put(`/postagem/${id}`, {
+        texto_postagem,
         disciplina,
-        texto,
+        autor,
       });
 
       alert("Postagem atualizada");
@@ -94,7 +97,7 @@ export default function EditarPostagem() {
 
         <TextInput
           placeholder="Conteúdo"
-          value={texto}
+          value={texto_postagem}
           onChangeText={setTexto}
           style={[
             styles.input,

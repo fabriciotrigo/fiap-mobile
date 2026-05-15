@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useAuth } from "../../src/contexts/AuthContext";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = {
   showBack?: boolean;
@@ -24,7 +25,7 @@ export default function Header({ showBack = false }: Props) {
         <View style={styles.left}>
           {showBack && (
             <TouchableOpacity onPress={() => router.back()}>
-              <Text style={styles.actionText}>←</Text>
+              <Ionicons name="arrow-back-outline" color="white"/>
             </TouchableOpacity>
           )}
         </View>
@@ -48,7 +49,7 @@ export default function Header({ showBack = false }: Props) {
 
               <TouchableOpacity onPress={handleLogout}>
                 <Text style={styles.logout}>
-                  | Sair
+                  | <Ionicons name="log-out-outline"/>
                 </Text>
               </TouchableOpacity>
             </View>
