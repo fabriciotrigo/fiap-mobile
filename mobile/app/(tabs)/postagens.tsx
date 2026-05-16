@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from "react"
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native"
+import { useState, useCallback } from "react"
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput } from "react-native"
 import Header from "../../components/shared/Header"
 import { api } from "../../src/services/api"
 import { router, useFocusEffect } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Postagem = {
   id: number;
@@ -14,6 +15,18 @@ type Postagem = {
 export default function Postagens() {
 
   const [posts, setPosts] = useState<Postagem[]>([]);
+  const [search, setSearch] = useState("");
+
+  const filteredPosts = posts.filter((post) => {
+
+    const text = search.toLowerCase();
+
+    return (
+      post.disciplina.toLowerCase().includes(text) ||
+      post.texto_postagem.toLowerCase().includes(text) ||
+      post.autor.toLowerCase().includes(text)
+    );
+  });
 
   async function loadPosts() {
 
@@ -45,8 +58,22 @@ export default function Postagens() {
 
       <Header />
 
+      <View style={styles.searchContainer}>
+        <Ionicons
+          name="search"
+          size={20}
+          color="#666"
+        />
+        <TextInput
+          placeholder="Pesquisar postagem..."
+          value={search}
+          onChangeText={setSearch}
+          style={styles.searchInput}
+        />
+      </View>
+
       <FlatList
-        data={posts}
+        data={filteredPosts}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
@@ -114,6 +141,23 @@ const styles = StyleSheet.create({
   content: {
     color: "#444",
     lineHeight: 22,
+  },
+
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    margin: 16,
+    marginBottom: 0,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    height: 50,
+  },
+
+  searchInput: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
   },
 
 });

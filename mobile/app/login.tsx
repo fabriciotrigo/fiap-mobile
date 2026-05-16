@@ -53,9 +53,17 @@ export default function Login() {
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
-        <Text style={styles.link}>
-          Não tem conta? <Text style={styles.linkBold}>Cadastre-se</Text>
-        </Text>
+        <View style={styles.registerContainer}>
+          <Text style={styles.link}>
+            Não tem conta? 
+          </Text>
+          <TouchableOpacity
+            onPress={() => router.push("/register")}
+          >
+            <Text style={styles.linkBold}> Cadastre-se</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -112,13 +120,20 @@ const styles = StyleSheet.create({
   },
 
   link: {
-    textAlign: "center",
-    marginTop: 15,
     color: "#555",
   },
 
   linkBold: {
     color: "#2563eb",
     fontWeight: "bold",
+    marginLeft: 4,
   },
+
+  registerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  }
+
 });
