@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
+    marginTop: 5,
   },
   
   buttonText: {

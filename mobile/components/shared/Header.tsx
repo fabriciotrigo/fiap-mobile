@@ -9,6 +9,15 @@ type Props = {
   userName?: string;
 };
 
+/* { exibir username no header }
+<Text
+  style={styles.user}
+  numberOfLines={1}
+  ellipsizeMode="tail"
+>
+  {user.username}
+</Text>*/
+
 export default function Header({ showBack = false }: Props) {
   const { user, logout } = useAuth();
 
@@ -25,7 +34,7 @@ export default function Header({ showBack = false }: Props) {
         <View style={styles.left}>
           {showBack && (
             <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="arrow-back-outline" color="white"/>
+              <Ionicons name="arrow-back-outline" color="white" size={24}/>
             </TouchableOpacity>
           )}
         </View>
@@ -39,17 +48,9 @@ export default function Header({ showBack = false }: Props) {
         <View style={styles.right}>
           {user && (
             <View style={styles.userContainer}>
-              <Text
-                style={styles.user}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {user.username}
-              </Text>
-
               <TouchableOpacity onPress={handleLogout}>
                 <Text style={styles.logout}>
-                  | <Ionicons name="log-out-outline"/>
+                  <Ionicons name="log-out-outline" size={24}/>
                 </Text>
               </TouchableOpacity>
             </View>
