@@ -44,6 +44,20 @@ export default function TabsLayout() {
         }}
       />
 
+      <Tabs.Screen
+        name="usuarios"
+        options={{
+            title: "Usuários",
+            href: isProfessor ? "/usuarios" : null,
+            tabBarIcon: ({ color, size, focused }) => (
+                <Ionicons
+                    color={color}
+                    size={size}
+                    name={focused ? "person-circle" : "person-circle-outline"}
+                />
+            ),
+        }}
+      />
     </Tabs>
   );
 }

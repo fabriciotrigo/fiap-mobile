@@ -3,19 +3,18 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "reac
 import { router } from "expo-router";
 import Header from "../components/shared/Header";
 import { api } from "../src/services/api";
+import { useAuth } from "../src/contexts/AuthContext";
 
 export default function Register() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // 1 = professor
-  // 2 = aluno
   const [nivel, setNivel] = useState(2);
+  const { user } = useAuth();
+  const isProfessor = user?.nivel === 1; // 1 = Professor; 2 = Aluno
 
   async function handleRegister() {
-
-    setNivel(2);
 
     try {
       await api.post("/users", {
@@ -29,7 +28,11 @@ export default function Register() {
         "Usuário cadastrado"
       );
 
-      router.replace("/login");
+      if (!isProfessor) {
+        router.replace("/login");
+      } else {
+        router.replace("/usuarios")
+      }
 
     } catch (error) {
 
@@ -69,15 +72,51 @@ export default function Register() {
           style={styles.input}
         />
 
+        {isProfessor && (
+        <View style={styles.levelContainer}>
+            <TouchableOpacity
+              style={[
+                styles.levelButton,
+                nivel === 1 && styles.selected,
+              ]}
+              onPress={() => setNivel(1)}
+            >
+              <Text 
+                style={[
+                  styles.levelText,
+                  nivel === 1 && styles.buttonText,
+                ]}
+                >
+                Professor
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.levelButton,
+                nivel === 2 && styles.selected,
+                ]}
+              onPress={() => setNivel(2)}
+            >
+              <Text 
+                style={[
+                  styles.levelText,
+                  nivel === 2 && styles.buttonText,
+                ]}
+            >
+                Aluno
+              </Text>
+            </TouchableOpacity>
+        </View>
+        )}
+
         <TouchableOpacity
           style={styles.button}
           onPress={handleRegister}
         >
-
           <Text style={styles.buttonText}>
             Cadastrar
           </Text>
-
         </TouchableOpacity>
 
       </View>
@@ -132,7 +171,7 @@ const styles = StyleSheet.create({
   },
 
   levelText: {
-    color: "#111",
+    color: "#5e5d5d",
     fontWeight: "bold",
   },
 
