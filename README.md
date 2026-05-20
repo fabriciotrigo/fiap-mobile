@@ -1,9 +1,14 @@
 # 📱 Blog Educacional Mobile
 ## Tech Challenge - Fase 4 - Pós Tech FIAP - 7FSDT
 
-Aplicação "frontend mobile" desenvolvida em React Native utilizando Expo Router.
+Aplicação "frontend mobile" desenvolvida em React Native com a utilização de Expo Router.
 
-O sistema permite gerenciamento de postagens, cadastro e gerenciamento de usuários por meio da utilização dos endpoints desenvolvidos na fase 2.
+O sistema, por meio da utilização dos endpoints desenvolvidos na fase 2 (backend), permite aos Professores o gerenciamento de postagens e usuários. Enquanto, os Alunos, apenas podem se cadastrar no sistema e visualizar as postagens
+
+| Nível | Tipo        | Postagens              | Usuários                      |
+|-------|-------------|------------------------|-------------------------------|
+|   1   | Professor   | Criar, editar, excluir | Criar, alterar nível, excluir |
+|   2   | Aluno       | Visualizar             | Cadastrar-se                  |
 
 ---
 
@@ -12,7 +17,6 @@ O sistema permite gerenciamento de postagens, cadastro e gerenciamento de usuár
 - React Native → utilizado para desenvolver a interface mobile multiplataforma (Android/iOS).
 - Expo → utilizado para facilitar a execução, build e desenvolvimento do app React Native.
 - Expo Router → utilizado para gerenciar a navegação entre telas utilizando rotas baseadas em arquivos.
-- TypeScript → utilizado para adicionar tipagem estática e maior segurança no desenvolvimento.
 - Axios → utilizado para realizar requisições HTTP para a API backend.
 - JWT → utilizado para autenticação e controle de acesso dos usuários.
 - AsyncStorage → utilizado para armazenar localmente token JWT e dados do usuário.
@@ -75,11 +79,11 @@ O sistema permite gerenciamento de postagens, cadastro e gerenciamento de usuár
 
 ## 👨‍🏫 Professor
 
-- Todas funcionalidades do aluno
+- Todas as funcionalidades do aluno
 - Criar postagens
 - Editar postagens
 - Excluir postagens
-- Gerenciar usuários
+- Criar novos usuários
 - Alterar nível de usuários
 - Excluir usuários
 

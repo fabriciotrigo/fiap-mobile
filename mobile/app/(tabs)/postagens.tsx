@@ -95,6 +95,13 @@ export default function Postagens() {
               {item.texto_postagem}
             </Text>
 
+            <Text 
+              style={styles.autor}
+              numberOfLines={1}
+            >
+              Autor: {item.autor}
+            </Text>
+
           </TouchableOpacity>
         )}
       />
@@ -140,6 +147,11 @@ const styles = StyleSheet.create({
   content: {
     color: "#444",
     lineHeight: 22,
+  },
+
+  autor: {
+    color: "#44444485",
+    marginTop: 8,
   },
 
   searchContainer: {
