@@ -139,6 +139,8 @@ Portanto, é necessário criar um arquivo ".env" na raíz do projeto conforme ex
 EXPO_PUBLIC_API_URL=http://XXX.XX.XXX.X:3000
 ```
 
+Esse deverá conter o endereço IP da máquina que está executando o backend.
+
 # 👨‍💻 Autor
 
 Fabrício Boschette Trigo - RM368000
