@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import Header from "../../components/shared/Header";
 import { api } from "../../src/services/api";
@@ -44,7 +44,7 @@ export default function EditarPostagem() {
         autor,
       });
 
-      alert("Postagem atualizada");
+      Alert.alert("Sucesso", "Postagem atualizada");
 
       router.back();
 
@@ -52,7 +52,7 @@ export default function EditarPostagem() {
 
       console.log(error);
 
-      alert("Erro ao atualizar");
+      Alert.alert("Erro", "Erro ao atualizar");
 
     }
   }
@@ -61,18 +61,40 @@ export default function EditarPostagem() {
 
     try {
 
-      await api.delete(`/postagem/${id}`);
+      //await api.delete(`/postagem/${id}`);
+      //alert("Postagem excluída com sucesso!");
+      Alert.alert(
+        "Excluir postagem",
+        "Deseja realmente excluir?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Excluir",
+            style: "destructive",
 
-      alert("Postagem excluída com sucesso!");
+            onPress: async () => {
+              try {
+                await api.delete(`/postagem/${id}`);
+                router.back();
 
-      router.back();
+              } catch (error) {
+                console.log(error);
+                Alert.alert(
+                  "Erro",
+                  "Não foi possível excluir"
+                );
+              }
+            },
+          },
+        ]
+      );
 
     } catch (error) {
-
       console.log(error);
-
-      alert("Erro ao excluir");
-
+      Alert.alert("Erro", "Erro ao excluir");
     }
   }
 

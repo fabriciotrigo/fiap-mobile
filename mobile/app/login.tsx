@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { signIn } from "../src/services/auth";
@@ -21,7 +21,7 @@ export default function Login() {
 
     } catch (error) {
       console.log(error);
-      alert('Usuário ou senha inválidos');
+      Alert.alert("Erro", "Usuário ou senha inválidos");
     }
   }
 
